@@ -14,7 +14,7 @@ class AdvertiseController extends Controller
      */
     public function index()
     {
-        //
+        return 'index';
     }
 
     /**
@@ -24,7 +24,7 @@ class AdvertiseController extends Controller
      */
     public function create()
     {
-        //
+        return 'create';
     }
 
     /**
@@ -35,7 +35,7 @@ class AdvertiseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return 'store';
     }
 
     /**
@@ -46,7 +46,7 @@ class AdvertiseController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -57,7 +57,7 @@ class AdvertiseController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit';
     }
 
     /**
@@ -69,7 +69,7 @@ class AdvertiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'update';
     }
 
     /**
@@ -80,6 +80,6 @@ class AdvertiseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'destroy';
     }
 }
