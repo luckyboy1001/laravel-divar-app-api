@@ -22,7 +22,11 @@ class AdvertiseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->realText(200),
+            'description' => $this->faker->realText(1000),
+            'price' => $this->faker->unique()->numberBetween(400000, 1000000),
+            'user_id' => 1,
+            'category_id' => 1,
         ];
     }
 }
