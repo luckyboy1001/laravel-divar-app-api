@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
 
-    public function advertises()
+    public function advertises(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Advertise::class, 'user_id');
     }

@@ -9,7 +9,6 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
-Route::resource('advertises', AdvertiseController::class);
 
 
 Route::group([
@@ -19,6 +18,8 @@ Route::group([
       return 'all';
    });
 
+
+    Route::resource('advertises', AdvertiseController::class);
 
 
 
