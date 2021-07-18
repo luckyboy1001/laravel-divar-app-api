@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\AdvertiseController;
-use App\Http\Controllers\Api\AuthController;
+
+use App\Http\Controllers\Api\Auth\AuthController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +18,13 @@ Route::group([
    Route::get('/all', function () {
       return 'all';
    });
-
-
-    Route::resource('advertises', AdvertiseController::class);
-
-
-
+    Route::resource('user/advertises', App\Http\Controllers\Api\User\AdvertiseController::class);
 
     Route::post('logout', [AuthController::class, 'logout']);
 });
+
+
+Route::get('advertises' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'index'])->name('advertise.index');
+Route::get('advertises/{id}' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'show'])->name('advertise.show');
+
+

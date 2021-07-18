@@ -25,4 +25,9 @@ class Advertise extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function fields()
+    {
+        return $this->hasMany(AdvertiseField::class);
+    }
+
 }
