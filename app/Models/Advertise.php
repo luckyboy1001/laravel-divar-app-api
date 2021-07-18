@@ -30,4 +30,9 @@ class Advertise extends Model
         return $this->hasMany(AdvertiseField::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(AdvertiseImage::class);
+    }
+
 }

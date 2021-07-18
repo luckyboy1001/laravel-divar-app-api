@@ -15,6 +15,9 @@ Route::group([
 ], function () {
     Route::resource('user/advertises', App\Http\Controllers\Api\User\AdvertiseController::class);
 
+    // upload photo routes
+    Route::post('user/advertises/images', [App\Http\Controllers\Api\User\AdvertiseImageController::class, 'upload'])->name('user.advertise.image.upload');
+
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
