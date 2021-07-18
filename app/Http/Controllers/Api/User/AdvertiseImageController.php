@@ -26,7 +26,7 @@ class AdvertiseImageController extends Controller
         $advertise = Advertise::find($request->advertise_id);
         if (!$advertise) {
             return response()->json([
-                'message' => 'advertise mot found',
+                'message' => 'آگهی پیدا نشد',
             ], 404);
         }
 
@@ -45,13 +45,13 @@ class AdvertiseImageController extends Controller
 
         if (!$uploadImage) {
             return response()->json([
-                'message' => 'image upload failed',
+                'message' => 'آپلود تصویر با شکست مواجه شد',
             ], 422);
         }
 
         $image = $advertise->images()->create([
             "alt" => $request->alt,
-            "url" => $fileNameToStore
+            "url" => 'advertises/' . $fileNameToStore
         ]);
 
         return response()->json([
@@ -77,10 +77,26 @@ class AdvertiseImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $request->validate([
+            'advertise_id' => ['required']
+        ]);
+
+        $advertise = Advertise::find($request->advertise_id);
+
+        if (!$advertise) {
+            return response()->json([
+                'message' => 'آیدی آگهی نامعتبر است'
+            ]);
+        }
+
+        $advertise->images()->find($id)->delete();
+
+        return response()->json([
+            'message' => 'تصویر با موفقیت حذف شد'
+        ]);
     }
 }

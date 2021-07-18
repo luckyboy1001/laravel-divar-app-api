@@ -13,4 +13,10 @@ class AdvertiseImage extends Model
         'alt', 'url', 'advertise_id'
     ];
 
+    protected $appends = array('image_path');
+
+    public function getImagePathAttribute()
+    {
+        return 'storages/' . $this->attributes['url'];
+    }
 }

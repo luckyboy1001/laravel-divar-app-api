@@ -21,8 +21,10 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-
+// advertise routes
 Route::get('advertises' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'index'])->name('advertise.index');
 Route::get('advertises/{id}' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'show'])->name('advertise.show');
+// image routes
+Route::get('advertises/{id}/images' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'show'])->name('advertise.images');
 
 

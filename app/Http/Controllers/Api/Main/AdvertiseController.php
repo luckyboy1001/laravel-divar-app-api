@@ -17,7 +17,7 @@ class AdvertiseController extends Controller
     public function index()
     {
         $advertises = Advertise::paginate(10);
-        $advertises->load(['category', 'fields']);
+        $advertises->load(['category', 'fields', 'images']);
 
         return response()->json([
             'data' => $advertises
@@ -42,7 +42,7 @@ class AdvertiseController extends Controller
 
         return response()->json([
             'message' => 'advertise found',
-            'data' => $advertise->load('category')
+            'data' => $advertise->load(['category', 'fields', 'images'])
         ]);
     }
 
