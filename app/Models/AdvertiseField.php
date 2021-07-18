@@ -9,6 +9,9 @@ class AdvertiseField extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'title', 'value', 'advertise_id'
+    ];
 
     public function advertise()
     {

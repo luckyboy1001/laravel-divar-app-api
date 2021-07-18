@@ -41,12 +41,13 @@ class AdvertiseController extends Controller
             ], 422);
         }
 
+
+        $this->updateOrCreateAdvertiseFields($request, $advertise);
+
         return response()->json([
-            'data' => $advertise->load('category'),
+            'data' => $advertise->load(['category', 'fields']),
             'message' => 'advertise created successfully'
         ], 201);
-
-
     }
 
     /**
@@ -67,7 +68,7 @@ class AdvertiseController extends Controller
 
         return response()->json([
             'message' => 'advertise found',
-            'data' => $advertise->load('category')
+            'data' => $advertise->load(['category', 'fields'])
         ]);
     }
 
@@ -79,31 +80,26 @@ class AdvertiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Advertise $advertise): \Illuminate\Http\JsonResponse
+    public function update(StoreAdvertiseRequest $request, Advertise $advertise): \Illuminate\Http\JsonResponse
     {
-        $data = $request->validate([
-            'title' => 'max:255',
-            'description' => 'max:10000',
-            'price' => 'max:10000000',
-            'category_id' => 'numeric'
-        ]);
-
         if (!$advertise) {
             return response()->json([
                 'message' => 'advertise not found on this user',
             ]);
         }
 
-        if (!$advertise->update($data)) {
+        if (!$advertise->update($request->validated())) {
             return response()->json([
                 'message' => 'advertise update process failed',
                 'data' => $advertise
             ]);
         }
 
+        $this->updateOrCreateAdvertiseFields($request, $advertise);
+
         return response()->json([
             'message' => 'advertise updated successfully',
-            'data' => $advertise
+            'data' => $advertise->load(['category', 'fields'])
         ]);
     }
 
@@ -131,4 +127,24 @@ class AdvertiseController extends Controller
             'message' => 'destroy process was successful'
         ]);
     }
+
+    public function updateOrCreateAdvertiseFields($request, $advertise): void
+    {
+        if (!$request->has('fields')) {
+            return;
+        }
+
+        foreach ($request->fields as $field) {
+            $advertise->fields()->updateOrCreate(
+                [
+                    'name' => $field['name']
+                ],
+                [
+                    'title' => $field['title'],
+                    'value' => $field['value'],
+                ],
+            );
+        }
+    }
+
 }
