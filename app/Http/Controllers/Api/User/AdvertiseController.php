@@ -28,7 +28,7 @@ class AdvertiseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreAdvertiseRequest $request): \Illuminate\Http\JsonResponse
@@ -53,7 +53,7 @@ class AdvertiseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id): \Illuminate\Http\JsonResponse
@@ -76,8 +76,8 @@ class AdvertiseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(StoreAdvertiseRequest $request, Advertise $advertise): \Illuminate\Http\JsonResponse
@@ -106,7 +106,7 @@ class AdvertiseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -131,6 +131,11 @@ class AdvertiseController extends Controller
     public function updateOrCreateAdvertiseFields($request, $advertise): void
     {
         if (!$request->has('fields')) {
+            return;
+        }
+
+        // disallow to create new filed if the ad has more than 10 fields
+        if (count($request->fields) > 10) {
             return;
         }
 

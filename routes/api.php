@@ -13,7 +13,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group([
     'middleware' => 'auth:sanctum',
 ], function () {
-
     Route::resource('user/advertises', App\Http\Controllers\Api\User\AdvertiseController::class);
 
     Route::post('logout', [AuthController::class, 'logout']);
