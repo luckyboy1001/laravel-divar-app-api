@@ -135,9 +135,9 @@ class AdvertiseController extends Controller
         }
 
         // disallow to create new filed if the ad has more than 10 fields
-        if (count($request->fields) > 10) {
-            return;
-        }
+//        if (count($advertise->fields) > 10) {
+//            return;
+//        }
 
         foreach ($request->fields as $field) {
             $advertise->fields()->updateOrCreate(

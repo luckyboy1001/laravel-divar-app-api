@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -19,7 +20,16 @@ Route::group([
     Route::post('user/advertises/images', [App\Http\Controllers\Api\User\AdvertiseImageController::class, 'upload'])->name('user.advertise.image.upload');
 
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::group([
+        'middleware' => 'admin',
+    ], function () {
+
+        Route::resource('categories', App\Http\Controllers\Api\Main\CategoryController::class);
+    });
 });
+
+
 
 // advertise routes
 Route::get('advertises' , [App\Http\Controllers\Api\Main\AdvertiseController::class, 'index'])->name('advertise.index');
