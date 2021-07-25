@@ -23,12 +23,19 @@ Route::group([
 
     Route::group([
         'middleware' => 'admin',
+        'prefix' => 'admin',
+        'as' => 'admin.'
     ], function () {
-
-        Route::resource('categories', App\Http\Controllers\Api\Main\CategoryController::class);
+        Route::post('categories', [App\Http\Controllers\Api\Main\CategoryController::class, 'store'])->name('categories.store');
+        Route::put('categories/{id}', [App\Http\Controllers\Api\Main\CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('categories/{id}', [App\Http\Controllers\Api\Main\CategoryController::class, 'destroy'])->name('categories.destroy');
     });
 });
 
+
+// category routes
+Route::get('categories', [App\Http\Controllers\Api\Main\CategoryController::class, 'index'])->name('categories.index');
+Route::get('categories/{id}', [App\Http\Controllers\Api\Main\CategoryController::class, 'show'])->name('categories.show');
 
 
 // advertise routes
